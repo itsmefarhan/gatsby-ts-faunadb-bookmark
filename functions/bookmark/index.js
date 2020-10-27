@@ -20,13 +20,7 @@ const typeDefs = gql`
     removeBookmark(id: ID!): Bookmark
   }
 `;
-q.Create(q.Collection("todos"), {
-  data: {
-    text,
-    done,
-    owner,
-  },
-});
+
 const resolvers = {
   Query: {
     bookmarks: async () => {
