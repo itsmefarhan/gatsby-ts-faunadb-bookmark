@@ -27,7 +27,7 @@ const Home = () => {
             !error &&
             data.bookmarks.map((item: Props) => (
               <div className="col-sm-4" key={item.id}>
-                <div className="shadow p-3">
+                <div className="shadow p-3 mt-3">
                   <h5>{item.title}</h5>
                   <p>{item.description}</p>
                   <div
