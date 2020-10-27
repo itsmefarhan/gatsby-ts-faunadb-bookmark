@@ -1,26 +1,8 @@
 import React from "react";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_BOOKMARKS, REMOVE_BOOKMARK } from "../components/gql";
 import Layout from "../components/layout";
 import Header from "../components/header";
-
-const GET_BOOKMARKS = gql`
-  query {
-    bookmarks {
-      id
-      title
-      url
-      description
-    }
-  }
-`;
-
-const REMOVE_BOOKMARK = gql`
-  mutation RemoveBookmark($id: ID!) {
-    removeBookmark(id: $id) {
-      title
-    }
-  }
-`;
 
 interface Props {
   id: string;
@@ -35,7 +17,7 @@ const Home = () => {
   return (
     <Layout>
       <Header />
-      <h3 className="text-center">Bookmark your favorite articles!</h3>
+      <h3 className="text-center mt-5 mb-5">Bookmark your favorite articles!</h3>
       <div className="container">
         {loading ? <h3>Loading</h3> : null}
         {error ? <p className="lead">{error.message}</p> : null}

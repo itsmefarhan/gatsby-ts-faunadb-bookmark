@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, graphql, useStaticQuery } from "gatsby";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_BOOKMARK, GET_BOOKMARKS } from "./gql";
 
 const Header = () => {
   const data = useStaticQuery(graphql`
@@ -16,8 +18,12 @@ const Header = () => {
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = () => {
-    console.log(title, url, description);
+  const [addBookmark] = useMutation(ADD_BOOKMARK);
+  const { refetch } = useQuery(GET_BOOKMARKS);
+
+  const handleSubmit = async () => {
+    await addBookmark({ variables: { title, url, description } });
+    await refetch();
     setTitle("");
     setUrl("");
     setDescription("");
@@ -76,7 +82,7 @@ const Header = () => {
                     <div className="form-group">
                       <label htmlFor="url">URL</label>
                       <input
-                        type="text"
+                        type="url"
                         className="form-control"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
