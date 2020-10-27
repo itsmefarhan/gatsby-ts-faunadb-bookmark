@@ -1,5 +1,5 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import Layout from "../components/layout";
 import Header from "../components/header";
 
@@ -14,6 +14,14 @@ const GET_BOOKMARKS = gql`
   }
 `;
 
+const REMOVE_BOOKMARK = gql`
+  mutation RemoveBookmark($id: ID!) {
+    removeBookmark(id: $id) {
+      title
+    }
+  }
+`;
+
 interface Props {
   id: string;
   title: string;
@@ -22,8 +30,8 @@ interface Props {
 }
 
 const Home = () => {
-  const { loading, error, data } = useQuery(GET_BOOKMARKS);
-
+  const { loading, error, data, refetch } = useQuery(GET_BOOKMARKS);
+  const [removeBookmark] = useMutation(REMOVE_BOOKMARK);
   return (
     <Layout>
       <Header />
@@ -46,7 +54,15 @@ const Home = () => {
                     <a href={item.url} target="_blank">
                       View
                     </a>
-                    <button className="btn-danger btn-sm">X</button>
+                    <button
+                      className="btn-danger btn-sm"
+                      onClick={async () => {
+                        await removeBookmark({ variables: { id: item.id } });
+                        await refetch();
+                      }}
+                    >
+                      X
+                    </button>
                   </div>
                 </div>
               </div>
