@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, graphql, useStaticQuery } from "gatsby";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_BOOKMARK, GET_BOOKMARKS } from "./gql";
@@ -18,16 +18,9 @@ const Header = () => {
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
 
-  const [addBookmark, { data }] = useMutation(ADD_BOOKMARK);
+  const [addBookmark] = useMutation(ADD_BOOKMARK);
   const { refetch } = useQuery(GET_BOOKMARKS);
 
-  useEffect(() => {
-    fetch("https://api.netlify.com/build_hooks/5fabd520c8f8399f7e6b0a22", {
-      method: "POST",
-    })
-      .then(() => console.log("hook ran"))
-      .catch(() => "hook err");
-  }, []);
 
   const handleSubmit = async () => {
     await addBookmark({ variables: { title, url, description } });
@@ -35,6 +28,11 @@ const Header = () => {
     setTitle("");
     setUrl("");
     setDescription("");
+    fetch("https://api.netlify.com/build_hooks/5fabd520c8f8399f7e6b0a22", {
+      method: "POST",
+    })
+      .then(() => console.log("hook ran"))
+      .catch(() => "hook err");
   };
 
   return (
