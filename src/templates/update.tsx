@@ -1,43 +1,44 @@
 import React from "react";
 import Layout from "../components/layout";
 import Header from "../components/header";
-import UpdateForm from "../components/updateForm";
-import { graphql } from "gatsby";
+// import UpdateForm from "../components/updateForm";
+// import { graphql } from "gatsby";
 
-export const query = graphql`
-  query($id: ID!) {
-    GetBookmarks {
-      bookmark(id: $id) {
-        title
-        url
-        description
-      }
-    }
-  }
-`;
+// export const query = graphql`
+//   query($id: ID!) {
+//     GetBookmarks {
+//       bookmark(id: $id) {
+//         title
+//         url
+//         description
+//       }
+//     }
+//   }
+// `;
 
-interface Props {
-  data: {
-    GetBookmarks: {
-      bookmark: {
-        title: string;
-        url: string;
-        description: string;
-      };
-    };
-  };
-  location: {
-    pathname: string;
-  };
-}
+// interface Props {
+//   data: {
+//     GetBookmarks: {
+//       bookmark: {
+//         title: string;
+//         url: string;
+//         description: string;
+//       };
+//     };
+//   };
+//   location: {
+//     pathname: string;
+//   };
+// }
 
-const Update = ({ data, location }: Props) => {
-  const pathLoc = location.pathname.slice(8);
+const Update = (props: any) => {
+  console.log(props)
+  // const pathLoc = location.pathname.slice(8);
 
   return (
     <Layout>
       <Header />
-      {data && data.GetBookmarks.bookmark && (
+      {/* {data && data.GetBookmarks.bookmark && (
         <div
           className="shadow-lg p-3 mt-5"
           style={{ maxWidth: "400px", margin: "auto" }}
@@ -48,7 +49,7 @@ const Update = ({ data, location }: Props) => {
             <UpdateForm item={data.GetBookmarks.bookmark} id={pathLoc} />
           </div>
         </div>
-      )}
+      )} */}
     </Layout>
   );
 };

@@ -1,40 +1,34 @@
-const path = require("path");
+// const path = require("path");
 
-module.exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
-  // get path to template
-  const updateTemplate = path.resolve("./src/templates/update.tsx");
-  // get markdown data
-  const { data } = await graphql(`
-    query {
-      GetBookmarks {
-        bookmarks {
-          id
-        }
-      }
-    }
-  `);
-  console.log('node', data);
-  data.GetBookmarks.bookmarks.forEach((mark) => {
-    // create new page
-    createPage({
-      component: updateTemplate,
-      path: `/update/${mark.id}`,
-      context: {
-        id: mark.id,
-      },
-    });
-  });
-};
-
-// exports.onCreatePage = async ({ page, actions }) => {
+// exports.createPages = async ({ graphql, actions }) => {
 //   const { createPage } = actions;
-
-//   if (page.path.match(/^\/update/)) {
-//     page.matchPath = "/update/*";
-
-//     // Update the page.
-
-//     createPage(page);
-//   }
+//   // get path to template
+//   const updateTemplate = path.resolve("./src/templates/update.tsx");
+//   // get markdown data
+//   const { data } = await graphql(`
+//     {
+//       GetBookmarks {
+//         bookmarks {
+//           id
+//           title
+//           url
+//           description
+//         }
+//       }
+//     }
+//   `);
+//   console.log("node", data);
+//   data.GetBookmarks.bookmarks.forEach((mark) => {
+//     // create new page
+//     createPage({
+//       component: updateTemplate,
+//       path: `/update/${mark.id}`,
+//       context: {
+//         id: mark.id,
+//         title: mark.title,
+//         url: mark.url,
+//         description: mark.description,
+//       },
+//     });
+//   });
 // };
