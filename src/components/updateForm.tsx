@@ -37,7 +37,7 @@ const Header = ({ pageContext }: Props) => {
     setTitle("");
     setUrl("");
     setDescription("");
-    fetch("https://api.netlify.com/build_hooks/5fabd520c8f8399f7e6b0a22", {
+    fetch("https://api.netlify.com/build_hooks/5fabed5d8df381ba6e8949ff", {
       method: "POST",
     })
       .then(() => console.log("hook ran"))

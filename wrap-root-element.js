@@ -6,7 +6,7 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import fetch from "isomorphic-fetch";
-// https://eloquent-tereshkova-8453eb.netlify.app/.netlify/functions/bookmark
+
 const client = new ApolloClient({
   link: new HttpLink({
     uri:

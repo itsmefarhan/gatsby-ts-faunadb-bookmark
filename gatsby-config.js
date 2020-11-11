@@ -14,7 +14,7 @@ module.exports = {
         // This is field under which it's accessible
         fieldName: "GetBookmarks",
         // Url to query from
-        url: "https://eloquent-tereshkova-8453eb.netlify.app/.netlify/functions/bookmark",
+        url: "https://gatsby-faunadb-bookmark.netlify.app/.netlify/functions/bookmark",
       },
     },
   ],
