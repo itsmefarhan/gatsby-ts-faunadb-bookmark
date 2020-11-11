@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, gql } from "@apollo/client";
 import { GET_BOOKMARKS } from "./gql";
+import { Props } from "../templates/update";
 
-interface Props {
-  item: {
-    title: string;
-    url: string;
-    description: string;
-  };
-  id: string;
-}
-
-const Header = ({ item, id }: Props) => {
+const Header = ({ pageContext }: Props) => {
   const UPDATE_BOOKMARK = gql`
     mutation update(
       $id: ID!
@@ -30,15 +22,17 @@ const Header = ({ item, id }: Props) => {
     }
   `;
 
-  const [title, setTitle] = useState(item.title);
-  const [url, setUrl] = useState(item.url);
-  const [description, setDescription] = useState(item.description);
+  const [title, setTitle] = useState(pageContext.title);
+  const [url, setUrl] = useState(pageContext.url);
+  const [description, setDescription] = useState(pageContext.description);
 
   const [updateBookmark] = useMutation(UPDATE_BOOKMARK);
   const { refetch } = useQuery(GET_BOOKMARKS);
 
   const handleSubmit = async () => {
-    await updateBookmark({ variables: { id, title, url, description } });
+    await updateBookmark({
+      variables: { id: pageContext.id, title, url, description },
+    });
     await refetch();
     setTitle("");
     setUrl("");

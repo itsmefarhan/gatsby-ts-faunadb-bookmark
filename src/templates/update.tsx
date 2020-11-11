@@ -1,55 +1,33 @@
 import React from "react";
 import Layout from "../components/layout";
 import Header from "../components/header";
-// import UpdateForm from "../components/updateForm";
-// import { graphql } from "gatsby";
+import UpdateForm from "../components/updateForm";
 
-// export const query = graphql`
-//   query($id: ID!) {
-//     GetBookmarks {
-//       bookmark(id: $id) {
-//         title
-//         url
-//         description
-//       }
-//     }
-//   }
-// `;
+export interface Props {
+  pageContext: {
+    title: string;
+    url: string;
+    description: string;
+    id: string;
+  };
+}
 
-// interface Props {
-//   data: {
-//     GetBookmarks: {
-//       bookmark: {
-//         title: string;
-//         url: string;
-//         description: string;
-//       };
-//     };
-//   };
-//   location: {
-//     pathname: string;
-//   };
-// }
-
-const Update = (props: any) => {
-  console.log(props)
-  // const pathLoc = location.pathname.slice(8);
-
+const Update = ({ pageContext }: Props) => {
   return (
     <Layout>
       <Header />
-      {/* {data && data.GetBookmarks.bookmark && (
+      {pageContext && (
         <div
           className="shadow-lg p-3 mt-5"
           style={{ maxWidth: "400px", margin: "auto" }}
         >
-          <h5>{data.GetBookmarks.bookmark.title}</h5>
-          <p>{data.GetBookmarks.bookmark.description}</p>
+          <h5>{pageContext.title}</h5>
+          <p>{pageContext.description}</p>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <UpdateForm item={data.GetBookmarks.bookmark} id={pathLoc} />
+            <UpdateForm pageContext={pageContext} />
           </div>
         </div>
-      )} */}
+      )}
     </Layout>
   );
 };
