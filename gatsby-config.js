@@ -6,16 +6,16 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-typescript",
-    // {
-    //   resolve: "gatsby-source-graphql",
-    //   options: {
-    //     // This type will contain remote schema Query type
-    //     typeName: "GSG",
-    //     // This is field under which it's accessible
-    //     fieldName: "GetBookmarks",
-    //     // Url to query from
-    //     url: "http://localhost:8888/.netlify/functions/bookmark",
-    //   },
-    // },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // This type will contain remote schema Query type
+        typeName: "GSG",
+        // This is field under which it's accessible
+        fieldName: "GetBookmarks",
+        // Url to query from
+        url: "https://eloquent-tereshkova-8453eb.netlify.app/.netlify/functions/bookmark",
+      },
+    },
   ],
 };

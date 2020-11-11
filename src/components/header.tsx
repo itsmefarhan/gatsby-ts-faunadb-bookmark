@@ -27,7 +27,7 @@ const Header = () => {
     })
       .then(() => console.log("hook ran"))
       .catch(() => "hook err");
-  }, [data]);
+  }, []);
 
   const handleSubmit = async () => {
     await addBookmark({ variables: { title, url, description } });
