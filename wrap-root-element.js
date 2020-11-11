@@ -10,7 +10,7 @@ import fetch from "isomorphic-fetch";
 const client = new ApolloClient({
   link: new HttpLink({
     uri:
-      "/.netlify/functions/bookmark",
+      "https://eloquent-tereshkova-8453eb.netlify.app/.netlify/functions/bookmark",
     fetch,
   }),
   cache: new InMemoryCache(),

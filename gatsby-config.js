@@ -14,7 +14,7 @@ module.exports = {
         // This is field under which it's accessible
         fieldName: "GetBookmarks",
         // Url to query from
-        url: "http://localhost:8888/.netlify/functions/bookmark",
+        url: "https://eloquent-tereshkova-8453eb.netlify.app/.netlify/functions/bookmark",
       },
     },
   ],
