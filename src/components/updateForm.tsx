@@ -37,6 +37,12 @@ const Header = ({ pageContext }: Props) => {
     setTitle("");
     setUrl("");
     setDescription("");
+    fetch("https://api.netlify.com/build_hooks/5fabd520c8f8399f7e6b0a22", {
+      method: "POST",
+    })
+      .then(() => console.log("hook ran"))
+      .catch(() => "hook err");
+    alert('Please wait 60-90 seconds to see update')
     window.location.href = "/";
   };
 

@@ -33,6 +33,7 @@ const Header = () => {
     })
       .then(() => console.log("hook ran"))
       .catch(() => "hook err");
+      alert('You will be able to edit content after 60-90 seconds')
   };
 
   return (
