@@ -1,0 +1,7 @@
+.deletebtn {
+  opacity: 0;
+}
+
+.custom:hover .deletebtn {
+  opacity: 1;
+}

@@ -3,8 +3,10 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_BOOKMARKS, REMOVE_BOOKMARK } from "../components/gql";
 import Layout from "../components/layout";
 import Header from "../components/header";
+import { Link } from "gatsby";
+import "./index.css";
 
-interface Props {
+export interface Props {
   id: string;
   title: string;
   url: string;
@@ -13,33 +15,38 @@ interface Props {
 
 const Home = () => {
   const { loading, error, data, refetch } = useQuery(GET_BOOKMARKS);
+  // if (data) console.log(data);
   const [removeBookmark] = useMutation(REMOVE_BOOKMARK);
   return (
     <Layout>
       <Header />
-      <h3 className="text-center mt-5 mb-5">Bookmark your favorite articles!</h3>
+      <h3 className="text-center mt-5 mb-5">
+        Bookmark your favorite articles!
+      </h3>
       <div className="container">
         {loading ? <h3>Loading</h3> : null}
         {error ? <p className="lead">{error.message}</p> : null}
 
         <div className="row">
           {!loading &&
-            !error &&
+            !error && data && data.bookmarks&&
             data.bookmarks.map((item: Props) => (
               <div className="col-sm-4" key={item.id}>
                 <div className="shadow p-3 mt-3">
-                  <h5>{item.title}</h5>
+                  <a href={item.url} target="_blank"><h5>{item.title}</h5></a>
                   <p>{item.description}</p>
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                  className='custom'
+                    style={{ display: "flex", justifyContent: "space-between", alignItems:'center' }}
                   >
-                    <a href={item.url} target="_blank">
-                      View
-                    </a>
+                    <Link to={`/update/${item.id}`}>View</Link>
+
                     <button
-                      className="btn-danger btn-sm"
+                      className="btn-danger btn-sm deletebtn"
                       onClick={async () => {
-                        await removeBookmark({ variables: { id: item.id } });
+                        await removeBookmark({
+                          variables: { id: item.id },
+                        });
                         await refetch();
                       }}
                     >

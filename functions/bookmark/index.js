@@ -7,6 +7,7 @@ const client = new faunadb.Client({ secret: process.env.FAUNADB });
 const typeDefs = gql`
   type Query {
     bookmarks: [Bookmark]
+    bookmark(id: ID!): Bookmark
   }
   type Bookmark {
     id: ID!
@@ -16,11 +17,16 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addBookmark(title: String!, url: String!, description: String!, ): Bookmark
+    addBookmark(title: String!, url: String!, description: String!): Bookmark
     removeBookmark(id: ID!): Bookmark
+    updateBookmark(
+      id: ID!
+      title: String
+      url: String
+      description: String
+    ): Bookmark
   }
 `;
-
 const resolvers = {
   Query: {
     bookmarks: async () => {
@@ -40,7 +46,17 @@ const resolvers = {
           };
         });
       } catch (error) {
-        console.log("error", error);
+        console.log("error bookmarks", error);
+      }
+    },
+    bookmark: async (_, { id }) => {
+      try {
+        const result = await client.query(
+          q.Get(q.Match(q.Index("bookmark"), id))
+        );
+        return result.data;
+      } catch (error) {
+        console.log("error bookmark", error);
       }
     },
   },
@@ -65,6 +81,18 @@ const resolvers = {
       try {
         const result = await client.query(
           q.Delete(q.Ref(q.Collection("bookmarks"), id))
+        );
+        return result.data;
+      } catch (error) {
+        console.log("error ", error);
+      }
+    },
+    updateBookmark: async (_, args) => {
+      try {
+        const result = await client.query(
+          q.Update(q.Ref(q.Collection("bookmarks"), args.id), {
+            data: args,
+          })
         );
         return result.data;
       } catch (error) {

@@ -1,13 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "gatsby";
+import Layout from "../components/layout";
+import Header from "../components/header";
 
 const NotFound = () => {
   return (
-    <Fragment>
-      <h3 className="text-center">Page Not Found</h3>
+    <Layout>
+      <Header />
+      <div className="text-center">
+        <h3>Page Not Found</h3>
 
-      <Link to="/">Back to Home</Link>
-    </Fragment>
+        <Link to="/">Back to Home</Link>
+      </div>
+    </Layout>
   );
 };
 
